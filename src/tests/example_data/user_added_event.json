@@ -1,0 +1,9 @@
+{
+	"EventName": "user_added",
+	"EventTarget": "event_target",
+	"UserId": "user-id",
+	"CreatedAt": 123123,
+	"Params": {
+		"param1": "value1"
+	}
+}

@@ -1,0 +1,14 @@
+namespace: wajox/eventmapper/tests
+suites:
+    unit:
+        path: .
+
+settings:
+    shuffle: true
+    lint: true
+paths:
+    tests: src/tests
+    output: src/tests/_output
+    support: src/tests/_support
+    data: src/tests
+     
