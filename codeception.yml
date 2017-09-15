@@ -1,4 +1,4 @@
-namespace: wajox/eventmapper/tests
+namespace: wajox/eventmapper
 suites:
     unit:
         path: .
