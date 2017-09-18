@@ -23,7 +23,7 @@ class EventPublisherTest extends \Codeception\Test\Unit
         $options = ["key1" => "value1"];
 
         $publisher = new EventPublisher(
-            "\wajox\eventmapper\tests\helpers\TestEventPublisherAdapter",
+            "\\wajox\\eventmapper\\tests\\helpers\\TestEventPublisherAdapter",
             $options
         );
 
@@ -33,7 +33,7 @@ class EventPublisherTest extends \Codeception\Test\Unit
         );
 
         $this->assertTrue(
-            $publisher->getAdapter()->publish(null)
+            $publisher->getAdapter()->publish(null, null)
         );
     }
 }

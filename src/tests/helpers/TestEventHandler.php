@@ -16,7 +16,7 @@ class TestEventHandler implements EventHandlerInterface
 
     public function getEvent()
     {
-        return $event;
+        return $this->event;
     }
 
     public function run()

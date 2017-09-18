@@ -30,8 +30,8 @@ class EventTest extends \Codeception\Test\Unit
         $params = ["key1" => "value1"];
 
         // call method
-        $eventObject = new Event();
-        $eventObject
+        $event = new Event();
+        $event
             ->setName($eventName)
             ->setTarget($eventTarget)
             ->setUserId($eventUserId)
@@ -41,8 +41,8 @@ class EventTest extends \Codeception\Test\Unit
         $this->assertEquals($eventName, $event->getName());
         $this->assertEquals($eventTarget, $event->getTarget());
         $this->assertEquals($eventUserId, $event->getUserId());
-        $this->assertEquals($createdAt, $this->getCreatedAt());
-        $this->assertEquals($params, $this->getParams());
+        $this->assertEquals($createdAt, $event->getCreatedAt());
+        $this->assertEquals($params, $event->getParams());
     }
 
     public function testParamsMethods()
@@ -54,22 +54,22 @@ class EventTest extends \Codeception\Test\Unit
         $params = ["key1" => "value1"];
 
         // call method
-        $eventObject = new Event();
-        $eventObject
+        $event = new Event();
+        $event
             ->setName($eventName)
             ->setTarget($eventTarget)
             ->setUserId($eventUserId)
             ->setCreatedAt($createdAt)
             ->setParams($params);
 
-        $this->assertEquals("value1", $eventObject->getParam("key1"));
-        $this->assertEquals(null, $eventObject->getParam("key2"));
+        $this->assertEquals("value1", $event->getParam("key1"));
+        $this->assertEquals(null, $event->getParam("key2"));
 
-        $eventObject->setParam("key2", "value2");
-        $this->assertEquals("value2", $eventObject->getParam("key2"));
+        $event->setParam("key2", "value2");
+        $this->assertEquals("value2", $event->getParam("key2"));
 
-        $eventObject->removeParam("key1");
-        $this->assertEquals(null, $eventObject->getParam("key1"));
+        $event->removeParam("key1");
+        $this->assertEquals(null, $event->getParam("key1"));
     }
 
     public function testJsonMethods()
@@ -80,42 +80,42 @@ class EventTest extends \Codeception\Test\Unit
         $createdAt = time();
         $params = ["key1" => "value1"];
 
-        $eventObject = new Event();
-        $eventObject
+        $event = new Event();
+        $event
             ->setName($eventName)
             ->setTarget($eventTarget)
             ->setUserId($eventUserId)
             ->setCreatedAt($createdAt)
             ->setParams($params);
 
-        $json = \json_encode($eventObject);
+        $json = \json_encode($event);
 
         $decodedEvent = new Event();
         $decodedEvent->loadJson($json);
 
         $this->assertEquals(
             $decodedEvent->getName(),
-            $eventObject->getName()
+            $event->getName()
         );
 
         $this->assertEquals(
             $decodedEvent->getTarget(),
-            $eventObject->getTarget()
+            $event->getTarget()
         );
 
         $this->assertEquals(
             $decodedEvent->getUserId(),
-            $eventObject->getUserId()
+            $event->getUserId()
         );
 
         $this->assertEquals(
             $decodedEvent->getCreatedAt(),
-            $eventObject->getCreatedAt()
+            $event->getCreatedAt()
         );
 
         $this->assertEquals(
             $decodedEvent->getParams(),
-            $eventObject->getParams()
+            $event->getParams()
         );
     }
 }

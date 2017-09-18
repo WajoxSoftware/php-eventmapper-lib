@@ -1,6 +1,8 @@
 <?php
 namespace wajox\eventmapper\tests;
 
+use wajox\eventmapper\EventRouter;
+
 class EventRouterTest extends \Codeception\Test\Unit
 {
     /**
@@ -19,16 +21,19 @@ class EventRouterTest extends \Codeception\Test\Unit
     // tests
     public function testRouting()
     {
-        $json = file_get_contents(__DIR__ . '/example_data/user_added_event.json');
+        $json = file_get_contents(
+            __DIR__ . '/example_data/user_added_event.json'
+        );
+
         $decodedJson = \json_decode($json, true);
 
-        $routes = [
+        $map = [
             $decodedJson["EventName"],
-            "\wajox\eventmapper\tests\helpers\TestEventHandler",
+            "\\wajox\\eventmapper\\tests\\helpers\\TestEventHandler",
         ];
 
         $router = new EventRouter($map);
-        $result = $router->run($json);
+        $result = $router->onEvent($json);
 
         $this->assertTrue($result);
     }

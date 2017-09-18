@@ -7,7 +7,7 @@ class TestEventPublisherAdapter implements EventPublisherAdapterInterface
 {
     protected $options = [];
 
-    public function __construct($options)
+    public function __construct($options = [])
     {
         $this->options = $options;
     }
@@ -17,7 +17,7 @@ class TestEventPublisherAdapter implements EventPublisherAdapterInterface
         return $this->options;
     }
 
-    public function publish($event)
+    public function publish($routingKey, $event)
     {
         return true;
     }
