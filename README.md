@@ -20,7 +20,7 @@ class TestEventHandler extends AbstractEventHandler
     }
 }
 ```
-Here is example of event processing
+Here is an example of event processing
 
 ```
 // your handler class name
