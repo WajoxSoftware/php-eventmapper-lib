@@ -10,7 +10,7 @@ e.g.
 <?php
 namespace wajox\eventmapper\tests\helpers;
 
-use ;
+use wajox\eventmapper\AbstractEventHandler;
 
 class TestEventHandler extends AbstractEventHandler
 {
@@ -20,7 +20,7 @@ class TestEventHandler extends AbstractEventHandler
     }
 }
 ```
-Here is an example of event processing
+Here is an example of the event processing
 
 ```
 // your handler class name
