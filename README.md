@@ -1,7 +1,7 @@
 # Eventmapper PHP
 
 ## Write and use event handler
-1. Create your class by extending wajox\eventmapper\AbstractEventHandler <?php
+1. Create your class by extending wajox\eventmapper\AbstractEventHandler
 2. Put your handler code into method run(), the method should return boolean value
 
 e.g.
