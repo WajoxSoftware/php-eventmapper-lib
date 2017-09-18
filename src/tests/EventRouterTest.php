@@ -21,6 +21,7 @@ class EventRouterTest extends \Codeception\Test\Unit
     // tests
     public function testRouting()
     {
+        $handlerClass = "\\wajox\\eventmapper\\tests\\helpers\\TestEventHandler";
         $json = file_get_contents(
             __DIR__ . '/example_data/user_added_event.json'
         );
@@ -28,13 +29,13 @@ class EventRouterTest extends \Codeception\Test\Unit
         $decodedJson = \json_decode($json, true);
 
         $map = [
-            $decodedJson["EventName"],
-            "\\wajox\\eventmapper\\tests\\helpers\\TestEventHandler",
+            "/" . $decodedJson["EventName"] . "/" => $handlerClass,
         ];
 
         $router = new EventRouter($map);
-        $result = $router->onEvent($json);
+        $results = $router->onEvent($json);
 
-        $this->assertTrue($result);
+        $this->assertEquals(1, count($results));
+        $this->assertTrue($results[$handlerClass]);
     }
 }

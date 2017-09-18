@@ -20,12 +20,8 @@ interface EventHandlerInterface
 
     /**
      * execute handler
+     *
+     * @return  bool
      */
     public function run();
-
-    /**
-     * get handler result
-     * @return mixed
-     */
-    public function getResult();
 }

@@ -1,8 +1,47 @@
 # Eventmapper PHP
 
-## Related to
+## Write and use event handler
+1. Create your class by extending wajox\eventmapper\AbstractEventHandler <?php
+2. Put your handler code into method run(), the method should return boolean value
 
-https://github.com/ildarusmanov/eventmapper
+e.g.
+```
+// ./helpers/TestEventHandler.php
+<?php
+namespace wajox\eventmapper\tests\helpers;
+
+use ;
+
+class TestEventHandler extends AbstractEventHandler
+{
+    public function run()
+    {
+        return true;
+    }
+}
+```
+Here is example of event processing
+
+```
+// your handler class name
+$handlerClass = "\\wajox\\eventmapper\\tests\\helpers\\TestEventHandler";
+
+// get event json from request body
+$eventJson = file_get_contents('php://input');
+
+// define event routes
+// $map = [
+//   "{regex}" => "{handler class name}",
+// ];
+
+$map = [
+    "/users\.(.+)/" => $handlerClass,
+];
+
+// create router object and process event
+$router = new EventRouter($map);
+$results = $router->onEvent($json);
+```
 
 ## Tests
 ```

@@ -21,19 +21,21 @@ class EventRouter implements EventRouterInterface
     /**
      * processnew event
      * @param  string $eventJson
-     * @return  bool
+     * @return  array
      */
     public function onEvent($eventJson)
     {
-        try {
-            $this->runHandlers(
-                $this->buildEvent($eventJson)->getName()
-            );
-        } catch (\Exception $e) {
-            return false;
-        }
+        $results = [];
 
-        return true;
+        //try {
+        $results = $this->runHandlers(
+                $this->buildEvent($eventJson)
+            );
+        //} catch (\Exception $e) {
+        //    return [];
+        //}
+
+        return $results;
     }
 
     /**
@@ -54,9 +56,43 @@ class EventRouter implements EventRouterInterface
     /**
      * run related event handlers
      * @param  EventInterface $event
+     * @return  array
      */
     protected function runHandlers($event)
     {
-        ;
+        $results = [];
+
+        foreach ($this->getMap() as $eventRegex => $handlerClass) {
+            if (preg_match($eventRegex, $event->getName()) == 1) {
+                $results[$handlerClass] = $this->runHandler(
+                    $handlerClass,
+                    $event
+                );
+            }
+        }
+
+        return $results;
+    }
+
+    /**
+     * execute handler
+     * @param  string $handlerClass
+     * @param  EventInterface $event
+     * @return bool
+     */
+    protected function runHandler($handlerClass, $event)
+    {
+        $handler = new $handlerClass($event);
+
+        return $handler->run();
+    }
+
+    /**
+     * get routes map
+     * @return array
+     */
+    protected function getMap()
+    {
+        return $this->map;
     }
 }
