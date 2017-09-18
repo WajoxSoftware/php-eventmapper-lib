@@ -8,10 +8,10 @@ namespace wajox\eventmapper;
  */
 interface EventPublisherAdapterInterface
 {
-	/**
-	 * constructor
-	 * @param array $options adapter options
-	 */
+    /**
+     * constructor
+     * @param array $options adapter options
+     */
     public function __construct($options = []);
 
     /**

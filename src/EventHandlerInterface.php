@@ -6,10 +6,10 @@ namespace wajox\eventmapper;
  */
 interface EventHandlerInterface
 {
-	/**
-	 * set event
-	 * @param EventInterface $event
-	 */
+    /**
+     * set event
+     * @param EventInterface $event
+     */
     public function setEvent($event);
 
     /**

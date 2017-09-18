@@ -9,16 +9,32 @@ use wajox\eventmapper\EventPublisherAdapterInterface;
  */
 class HttpEventPublisher implements EventPublisherAdapterInterface
 {
-	protected $options;
+    protected $options;
 
-	public function __construct($options = [])
-	{
-		$this->setOptions($options);
-	}
+    /**
+     * constructor
+     * @param array $options "url" and "token" are required options
+     * e.g.
+     * 	[
+     * 		"url" => "http://0.0.0.0:5000/create",
+     * 		"token" => "super-token",
+     *   ]
+     */
+    public function __construct($options = [])
+    {
+        $this->setOptions($options);
+    }
 
+    /**
+     * publishe event
+     * @see ../EventPublisherAdapterInterface.php
+     * @param  string $routingKey [description]
+     * @param  EventInterface $event
+     * @return bool
+     */
     public function publish($routingKey, $event)
     {
-    	return $this->sendRequest($routingKey, $event);
+        return $this->sendRequest($routingKey, $event);
     }
 
     /**
@@ -28,11 +44,11 @@ class HttpEventPublisher implements EventPublisherAdapterInterface
      */
     protected function getOption($key)
     {
-    	if (isset($this->options[$key])) {
-    		return $this->options[$key];	
-    	}
+        if (isset($this->options[$key])) {
+            return $this->options[$key];
+        }
 
-    	throw new \Exception('Can not find option with key ' . $key); 	
+        throw new \Exception('Can not find option with key ' . $key);
     }
 
     /**
@@ -41,9 +57,9 @@ class HttpEventPublisher implements EventPublisherAdapterInterface
      */
     protected function setOptions($options)
     {
-    	$this->options = $options;
+        $this->options = $options;
 
-    	return $this;
+        return $this;
     }
 
     /**
@@ -52,7 +68,7 @@ class HttpEventPublisher implements EventPublisherAdapterInterface
      */
     protected function getHttpClient()
     {
-    	return new \GuzzleHttp\Client();
+        return new \GuzzleHttp\Client();
     }
 
     /**
@@ -63,18 +79,18 @@ class HttpEventPublisher implements EventPublisherAdapterInterface
      */
     protected function sendRequest($rKey, $event)
     {
-    	$resp = $this->getHttpClient()->request(
-    		'POST',
-    		$this->buildRequestUrl($rKey),
-    		[
-    			'headers' => [
-    				'Content-Type' => 'application/json'
-    			],
-    			'body' => \json_encode($event),
-    		]
-    	);
+        $resp = $this->getHttpClient()->request(
+            'POST',
+            $this->buildRequestUrl($rKey),
+            [
+                'headers' => [
+                    'Content-Type' => 'application/json'
+                ],
+                'body' => \json_encode($event),
+            ]
+        );
 
-    	return $resp->getStatusCode() == 200;
+        return $resp->getStatusCode() == 200;
     }
 
     /**
@@ -84,8 +100,8 @@ class HttpEventPublisher implements EventPublisherAdapterInterface
      */
     protected function buildRequestUrl($rKey)
     {
-    	return $this->getOption('url')
-    		. '/' . $rKey
-    		. '/?token=' . $this->getOption('token');
+        return $this->getOption('url')
+            . '/' . $rKey
+            . '/?token=' . $this->getOption('token');
     }
 }

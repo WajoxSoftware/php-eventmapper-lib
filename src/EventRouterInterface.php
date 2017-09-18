@@ -6,10 +6,10 @@ namespace wajox\eventmapper;
  */
 interface EventRouterInterface
 {
-	/**
-	 * constructor
-	 * @param array $map e.g. ["eventName" => "handler\ClassName"]
-	 */
+    /**
+     * constructor
+     * @param array $map e.g. ["eventName" => "handler\ClassName"]
+     */
     public function __construct($map);
 
     /**

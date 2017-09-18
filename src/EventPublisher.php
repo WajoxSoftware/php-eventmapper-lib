@@ -7,31 +7,31 @@ namespace wajox\eventmapper;
  */
 class EventPublisher implements EventPublisherInterface
 {
-	protected $adapter;
+    protected $adapter;
 
     public function __construct($adapterClass = '', $adapterParams = [])
     {
-    	if ($adapterClass != '') {
-    		$this->buildAdapter($adapterClass, $adapterParams);
-    	}
+        if ($adapterClass != '') {
+            $this->buildAdapter($adapterClass, $adapterParams);
+        }
     }
 
     public function getAdapter()
     {
-    	return $this->adapter;
+        return $this->adapter;
     }
 
     public function setAdapter($adapter)
     {
-    	$this->adapter = $adapter;
+        $this->adapter = $adapter;
 
-    	return $this;
+        return $this;
     }
 
     protected function buildAdapter($adapterClass, $adapterParams)
     {
-    	$this->adapter = new $adapterClass($adapterParams);
+        $this->adapter = new $adapterClass($adapterParams);
 
-    	return $this;
+        return $this;
     }
 }

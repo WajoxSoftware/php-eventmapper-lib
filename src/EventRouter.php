@@ -7,15 +7,15 @@ namespace wajox\eventmapper;
  */
 class EventRouter implements EventRouterInterface
 {
-	protected $map;
+    protected $map;
 
-	/**
-	 * constructor
-	 * @param array $map e.g. ["eventName" => "handler\ClassName"]
-	 */
+    /**
+     * constructor
+     * @param array $map e.g. ["eventName" => "handler\ClassName"]
+     */
     public function __construct($map)
     {
-    	$this->map = $map;
+        $this->map = $map;
     }
 
     /**
@@ -25,15 +25,15 @@ class EventRouter implements EventRouterInterface
      */
     public function onEvent($eventJson)
     {
-  		try {
-	    	$this->runHandlers(
-	    		$this->buildEvent($eventJson)->getName()
-	    	);
-    	} catch (\Exception $e) {
-			return false;    		
-    	}
+        try {
+            $this->runHandlers(
+                $this->buildEvent($eventJson)->getName()
+            );
+        } catch (\Exception $e) {
+            return false;
+        }
 
-    	return true;
+        return true;
     }
 
     /**
@@ -44,11 +44,11 @@ class EventRouter implements EventRouterInterface
      */
     protected function buildEvent($eventJson)
     {
-    	$event = new Event();
+        $event = new Event();
 
-    	$event->loadJson($eventJson);
+        $event->loadJson($eventJson);
 
-    	return $event;
+        return $event;
     }
 
     /**
@@ -57,6 +57,6 @@ class EventRouter implements EventRouterInterface
      */
     protected function runHandlers($event)
     {
-    	;
+        ;
     }
 }
