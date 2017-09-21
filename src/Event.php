@@ -64,7 +64,9 @@ class Event implements EventInterface, \JsonSerializable
 
     public function setParams($eventParams)
     {
-        $this->params = $eventParams;
+        foreach ($eventParams as $name => $value) {
+            $this->setParam($name, $value);
+        }
 
         return $this;
     }
@@ -80,7 +82,7 @@ class Event implements EventInterface, \JsonSerializable
 
     public function setParam($paramName, $paramValue)
     {
-        $this->params[$paramName] = $paramValue;
+        $this->params[$paramName] = (string) $paramValue;
 
         return $this;
     }
