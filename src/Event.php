@@ -97,9 +97,9 @@ class Event implements EventInterface, \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            "EventName" => $this->getName(),
-            "EventTarget" => $this->getTarget(),
-            "UserId" => $this->getUserId(),
+            "EventName" => (string) $this->getName(),
+            "EventTarget" => (string) $this->getTarget(),
+            "UserId" => (string) $this->getUserId(),
             "CreatedAt" => $this->getCreatedAt(),
             "Params" => $this->getParams(),
         ];
