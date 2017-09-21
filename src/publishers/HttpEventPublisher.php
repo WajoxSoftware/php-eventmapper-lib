@@ -102,6 +102,6 @@ class HttpEventPublisher implements EventPublisherAdapterInterface
     {
         return $this->getOption('url')
             . '/' . $rKey
-            . '/?token=' . $this->getOption('token');
+            . '?token=' . $this->getOption('token');
     }
 }
