@@ -82,8 +82,12 @@ class Event implements EventInterface, \JsonSerializable
 
     public function setParam($paramName, $paramValue)
     {
-        $this->params[$paramName] = (string) $paramValue;
-
+        if (is_array($paramValue)) {
+            $this->params[$paramName] = (string) \json_encode($paramValue);
+        } else {
+            $this->params[$paramName] = (string) $paramValue;    
+        }
+        
         return $this;
     }
 
