@@ -101,7 +101,7 @@ class HttpEventPublisher implements EventPublisherAdapterInterface
     protected function buildRequestUrl($rKey)
     {
         return $this->getOption('url')
-            . '/' . $rKey
+            . '/' . $rKey . '/events'
             . '?token=' . $this->getOption('token');
     }
 }
