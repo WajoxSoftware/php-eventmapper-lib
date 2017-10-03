@@ -3,6 +3,8 @@ namespace wajox\eventmapper;
 
 class Event implements EventInterface, \JsonSerializable
 {
+    const MAX_PARAMS_SIZE = 200;
+
     protected $name;
     protected $target;
     protected $userId;
@@ -82,6 +84,10 @@ class Event implements EventInterface, \JsonSerializable
 
     public function setParam($paramName, $paramValue)
     {
+        if (sizeof($this->params) >= self::MAX_PARAMS_SIZE) {
+            return $this;
+        }
+
         if (is_array($paramValue)) {
             $this->params[$paramName] = (string) \json_encode($paramValue);
         } else {
