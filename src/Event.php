@@ -91,7 +91,7 @@ class Event implements EventInterface, \JsonSerializable
         if (is_array($paramValue)) {
             $this->params[$paramName] = (string) \json_encode($paramValue);
         } else {
-            $this->params[$paramName] = (string) $paramValue;    
+            $this->params[$paramName] = (string) $paramValue;
         }
         
         return $this;

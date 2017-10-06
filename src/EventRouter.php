@@ -27,13 +27,13 @@ class EventRouter implements EventRouterInterface
     {
         $results = [];
 
-        //try {
-        $results = $this->runHandlers(
+        try {
+            $results = $this->runHandlers(
                 $this->buildEvent($eventJson)
             );
-        //} catch (\Exception $e) {
-        //    return [];
-        //}
+        } catch (\Exception $e) {
+            return [];
+        }
 
         return $results;
     }
