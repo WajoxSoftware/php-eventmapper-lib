@@ -40,7 +40,7 @@ $map = [
 
 // create router object and process event
 $router = new EventRouter($map);
-$results = $router->onEvent($json);
+$results = $router->onEvent($eventJson);
 ```
 
 ## Tests
