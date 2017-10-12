@@ -32,7 +32,7 @@ class EventRouter implements EventRouterInterface
                 $this->buildEvent($eventJson)
             );
         } catch (\Exception $e) {
-            return [];
+            return ['errors' => $e->getMessage()];
         }
 
         return $results;
