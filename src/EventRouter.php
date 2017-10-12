@@ -82,8 +82,10 @@ class EventRouter implements EventRouterInterface
      */
     protected function runHandler($handlerClass, $event)
     {
-        $handler = new $handlerClass($event);
+        $handler = new $handlerClass();
 
+        $handler->setEvent($event);
+        
         return $handler->run();
     }
 
