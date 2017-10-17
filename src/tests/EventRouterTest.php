@@ -29,13 +29,33 @@ class EventRouterTest extends \Codeception\Test\Unit
         $decodedJson = \json_decode($json, true);
 
         $map = [
-            "/" . $decodedJson["EventName"] . "/" => $handlerClass,
+            "/" . $decodedJson["event_name"] . "/" => $handlerClass,
         ];
+
 
         $router = new EventRouter($map);
         $results = $router->onEvent($json);
 
         $this->assertEquals(1, count($results));
         $this->assertTrue($results[$handlerClass]);
+        $this->assertFalse(isset($results['errors']));
+    }
+
+    public function testRoutingInvalidEvent()
+    {
+        $handlerClass = "\\wajox\\eventmapper\\tests\\helpers\\TestEventHandler";
+        $json = '{"event_name": "ssss", "sasd": "asdasd"}';
+
+        $decodedJson = \json_decode($json, true);
+
+        $map = [
+            "/" . $decodedJson["event_name"] . "/" => $handlerClass,
+        ];
+
+        $router = new EventRouter($map);
+        $results = $router->onEvent($json);
+
+        $this->assertEquals(1, count($results));
+        $this->assertTrue(isset($results['errors']));
     }
 }

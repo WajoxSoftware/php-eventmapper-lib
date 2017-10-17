@@ -7,6 +7,49 @@ namespace wajox\eventmapper;
 interface EventInterface
 {
     /**
+     * get event target
+     * @return EventTargetInterface
+     */
+    public function getTarget();
+
+    /**
+     * set event target
+     * @param EventTargetInterface $eventTarget
+     * @return EventInterface
+     */
+    public function setTarget($eventTarget);
+
+    /**
+     * @param  string $targetType
+     * @param  string $targetId
+     * @param  array $targetParams
+     * @return EventInterface
+     */
+    public function buildTarget($targetType, $targetId, $targetParams);
+
+    /**
+     * get event source
+     * @return EventSourceInterface
+     */
+    public function getSource();
+
+    /**
+     * set event source
+     * @param EventSourceInterface $eventSource
+     * @return EventInterface
+     */
+    public function setSource($eventSource);
+
+    /**
+     * @param  string $sourceType
+     * @param  string $sourceId
+     * @param  string $sourceOrigin
+     * @param  array $sourceParams
+     * @return EventInterface
+     */
+    public function buildSource($sourceType, $sourceId, $sourceOrigin, $sourceParams);
+
+    /**
      * getevent name
      * @return string
      */
@@ -18,19 +61,6 @@ interface EventInterface
      * @return EventInterface
      */
     public function setName($eventName);
-
-    /**
-     * get event target
-     * @return string
-     */
-    public function getTarget();
-
-    /**
-     * set event target
-     * @param string $eventTarget
-     * @return EventInterface
-     */
-    public function setTarget($eventTarget);
 
     /**
      * get event authors user id

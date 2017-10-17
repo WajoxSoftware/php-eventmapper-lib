@@ -1,9 +1,23 @@
 {
-	"EventName": "user_added",
-	"EventTarget": "event_target",
-	"UserId": "user-id",
-	"CreatedAt": 123123,
-	"Params": {
+	"source": {
+		"source_type": "source-type",
+		"source_id": "source-id",
+		"origin": "origin",
+		"params": {
+			"s_p1": "s_v1"
+		}
+	},
+	"target": {
+		"target_type": "target_type",
+		"target_id": "target_id",
+		"params": {
+			"t_p1": "t_v1"
+		}
+	},
+	"event_name": "added",
+	"user_id": "user-id",
+	"created_at": 123123,
+	"params": {
 		"param1": "value1"
 	}
 }

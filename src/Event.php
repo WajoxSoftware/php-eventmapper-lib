@@ -5,11 +5,59 @@ class Event implements EventInterface, \JsonSerializable
 {
     const MAX_PARAMS_SIZE = 200;
 
-    protected $name;
     protected $target;
+    protected $source;
+    protected $name;
     protected $userId;
     protected $createdAt;
     protected $params = [];
+
+    public function getTarget()
+    {
+        return $this->target;
+    }
+
+    public function setTarget($target)
+    {
+        $this->target = $target;
+
+        return $this;
+    }
+
+    public function buildTarget($targetType, $targetId, $targetParams)
+    {
+        return $this->setTarget(
+            new EventTarget(
+                $targetType,
+                $targetId,
+                $targetParams
+            )
+        );
+    }
+
+    public function getSource()
+    {
+        return $this->source;
+    }
+
+    public function setSource($source)
+    {
+        $this->source = $source;
+
+        return $this;
+    }
+
+    public function buildSource($sourceType, $sourceId, $sourceOrigin, $sourceParams)
+    {
+        return $this->setSource(
+            new EventSource(
+                $sourceType,
+                $sourceId,
+                $sourceOrigin,
+                $sourceParams
+            )
+        );
+    }
 
     public function getName()
     {
@@ -19,18 +67,6 @@ class Event implements EventInterface, \JsonSerializable
     public function setName($eventName)
     {
         $this->name = $eventName;
-
-        return $this;
-    }
-
-    public function getTarget()
-    {
-        return $this->target;
-    }
-
-    public function setTarget($eventTarget)
-    {
-        $this->target = $eventTarget;
 
         return $this;
     }
@@ -109,11 +145,12 @@ class Event implements EventInterface, \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            "EventName" => (string) $this->getName(),
-            "EventTarget" => (string) $this->getTarget(),
-            "UserId" => (string) $this->getUserId(),
-            "CreatedAt" => $this->getCreatedAt(),
-            "Params" => $this->getParams(),
+            "target" => $this->getTarget()->jsonSerialize(),
+            "source" => $this->getSource()->jsonSerialize(),
+            "event_name" => (string) $this->getName(),
+            "user_id" => (string) $this->getUserId(),
+            "created_at" => $this->getCreatedAt(),
+            "params" => $this->getParams(),
         ];
     }
 
@@ -122,11 +159,21 @@ class Event implements EventInterface, \JsonSerializable
         $decoded = \json_decode($json, true);
 
         $this
-            ->setName($decoded["EventName"])
-            ->setTarget($decoded["EventTarget"])
-            ->setUserId($decoded["UserId"])
-            ->setCreatedAt($decoded["CreatedAt"])
-            ->setParams($decoded["Params"]);
+            ->buildTarget(
+                $decoded["target"]["target_type"],
+                $decoded["target"]["target_id"],
+                $decoded["target"]["params"]
+            )
+            ->buildSource(
+                $decoded["source"]["source_type"],
+                $decoded["source"]["source_id"],
+                $decoded["source"]["origin"],
+                $decoded["source"]["params"]
+            )
+            ->setName($decoded["event_name"])
+            ->setUserId($decoded["user_id"])
+            ->setCreatedAt($decoded["created_at"])
+            ->setParams($decoded["params"]);
 
         return $this;
     }

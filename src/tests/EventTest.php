@@ -22,9 +22,17 @@ class EventTest extends \Codeception\Test\Unit
     // tests
     public function testCreateMethod()
     {
-        // init data
+        // 
+        $sourceType = "source";
+        $sourceId = "source_id";
+        $sourceOrigin = "source-origin";
+        $sourceParams = ["k" => "v"];
+      
+        $targetType = "target";
+        $targetId = "target_id";
+        $targetParams = ["a" => "b"];
+
         $eventName = "name";
-        $eventTarget = "event-target";
         $eventUserId = "event-user-id";
         $createdAt = time();
         $params = ["key1" => "value1"];
@@ -32,23 +40,41 @@ class EventTest extends \Codeception\Test\Unit
         // call method
         $event = new Event();
         $event
+            ->buildTarget($targetType, $targetId, $targetParams)
+            ->buildSource($sourceType, $sourceId, $sourceOrigin, $sourceParams)
             ->setName($eventName)
-            ->setTarget($eventTarget)
             ->setUserId($eventUserId)
             ->setCreatedAt($createdAt)
             ->setParams($params);
         // validate
         $this->assertEquals($eventName, $event->getName());
-        $this->assertEquals($eventTarget, $event->getTarget());
+
+        $this->assertEquals($sourceType, $event->getSource()->getType());
+        $this->assertEquals($sourceId, $event->getSource()->getId());
+        $this->assertEquals($sourceOrigin, $event->getSource()->getOrigin());
+        $this->assertEquals($sourceParams, $event->getSource()->getParams());
+
+        $this->assertEquals($targetType, $event->getTarget()->getType());
+        $this->assertEquals($targetId, $event->getTarget()->getId());
+        $this->assertEquals($targetParams, $event->getTarget()->getParams());
+
         $this->assertEquals($eventUserId, $event->getUserId());
         $this->assertEquals($createdAt, $event->getCreatedAt());
         $this->assertEquals($params, $event->getParams());
     }
 
     public function testParamsMethods()
-    {        // init data
+    {    
+        $sourceType = "source";
+        $sourceId = "source_id";
+        $sourceOrigin = "source-origin";
+        $sourceParams = ["k" => "v"];
+      
+        $targetType = "target";
+        $targetId = "target_id";
+        $targetParams = ["a" => "b"];
+    // init data
         $eventName = "name";
-        $eventTarget = "event-target";
         $eventUserId = "event-user-id";
         $createdAt = time();
         $params = ["key1" => "value1"];
@@ -56,8 +82,9 @@ class EventTest extends \Codeception\Test\Unit
         // call method
         $event = new Event();
         $event
+            ->buildTarget($targetType, $targetId, $targetParams)
+            ->buildSource($sourceType, $sourceId, $sourceOrigin, $sourceParams)
             ->setName($eventName)
-            ->setTarget($eventTarget)
             ->setUserId($eventUserId)
             ->setCreatedAt($createdAt)
             ->setParams($params);
@@ -74,16 +101,25 @@ class EventTest extends \Codeception\Test\Unit
 
     public function testJsonMethods()
     {
+        $sourceType = "source";
+        $sourceId = "source_id";
+        $sourceOrigin = "source-origin";
+        $sourceParams = ["k" => "v"];
+      
+        $targetType = "target";
+        $targetId = "target_id";
+        $targetParams = ["a" => "b"];
+
         $eventName = "name";
-        $eventTarget = "event-target";
         $eventUserId = "event-user-id";
         $createdAt = time();
         $params = ["key1" => "value1"];
 
         $event = new Event();
         $event
+            ->buildTarget($targetType, $targetId, $targetParams)
+            ->buildSource($sourceType, $sourceId, $sourceOrigin, $sourceParams)
             ->setName($eventName)
-            ->setTarget($eventTarget)
             ->setUserId($eventUserId)
             ->setCreatedAt($createdAt)
             ->setParams($params);
