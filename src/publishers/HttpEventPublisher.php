@@ -85,6 +85,8 @@ class HttpEventPublisher implements EventPublisherAdapterInterface
             [
                 'headers' => [
                     'Content-Type' => 'application/json'
+                    'User-Agent' => $this->getOption('header_user_agent'),
+                    'Host' => $this->getOption('header_host'),
                 ],
                 'body' => \json_encode($event),
             ]
