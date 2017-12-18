@@ -83,12 +83,13 @@ class HttpEventPublisher implements EventPublisherAdapterInterface
             'POST',
             $this->buildRequestUrl($rKey),
             [
-                'headers' => [
-                    'Content-Type' => 'application/json',
-                    'User-Agent' => $this->getOption('header_user_agent'),
-                    'Auth-Token' => $this->getOption('token'),
-                    'Host' => $this->getOption('header_host'),
-                ],
+                'headers' => array_merge(
+                    [
+                        'Content-Type' => 'application/json',
+                        'Auth-Token' => $this->getOption('token'),
+                    ],
+                    $this->getOption('headers')
+                ),
                 'body' => \json_encode($event),
             ]
         );
