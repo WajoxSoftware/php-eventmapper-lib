@@ -1,5 +1,5 @@
 # Eventmapper PHP
-
+[![Build Status](https://travis-ci.org/WajoxSoftware/php-eventmapper-lib.svg?branch=version-2)](https://travis-ci.org/WajoxSoftware/php-eventmapper-lib)
 ## Write and use event handler
 1. Create your class by extending wajox\eventmapper\AbstractEventHandler
 2. Put your handler code into method run(), the method should return boolean value

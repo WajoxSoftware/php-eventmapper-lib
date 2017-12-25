@@ -1,0 +1,6 @@
+language: php
+php:
+  - nightly
+script: 
+  - composer install
+  - ./vendor/bin/codecept run unit

@@ -83,9 +83,13 @@ class HttpEventPublisher implements EventPublisherAdapterInterface
             'POST',
             $this->buildRequestUrl($rKey),
             [
-                'headers' => [
-                    'Content-Type' => 'application/json'
-                ],
+                'headers' => array_merge(
+                    [
+                        'Content-Type' => 'application/json',
+                        'Auth-Token' => $this->getOption('token'),
+                    ],
+                    $this->getOption('headers')
+                ),
                 'body' => \json_encode($event),
             ]
         );
@@ -100,8 +104,6 @@ class HttpEventPublisher implements EventPublisherAdapterInterface
      */
     protected function buildRequestUrl($rKey)
     {
-        return $this->getOption('url')
-            . '/' . $rKey . '/events'
-            . '?token=' . $this->getOption('token');
+        return $this->getOption('url') . '/' . $rKey . '/events';
     }
 }
