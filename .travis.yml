@@ -1,3 +1,4 @@
 language: php
 php:
   - nightly
+script: vendor/bin/codecept run unit
